@@ -3,5 +3,13 @@ services:
   app:
     build:
       context: ./app
+  gateway:
+    build:
+      context: ./gateway
+    links:
+      - "app:app"
+    environment:
+      - APP_HOST=app
+      - APP_PORT=3000
     ports:
-      - "3000:3000"
+      - "80:80"
