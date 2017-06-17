@@ -1,0 +1,14 @@
+{
+  "presets": [
+    "es2015",
+    "stage-1"
+  ],
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./src/modules"],
+      "alias": {
+        "@fetch": "node-fetch"
+      }
+    }]
+  ]
+}
