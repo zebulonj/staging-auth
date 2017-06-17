@@ -3,11 +3,15 @@ services:
   app:
     build:
       context: ./app
+  auth:
+    build:
+      context: ./auth
   gateway:
     build:
       context: ./gateway
     links:
       - "app:app"
+      - "auth:auth"
     environment:
       - APP_HOST=app
       - APP_PORT=3000
