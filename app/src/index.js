@@ -4,6 +4,10 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
+app.use( '/unauthorized', ( req, res ) => {
+  res.status( 401 ).send({ message: 'Unauthorized' });
+})
+
 app.use( ( req, res ) => {
   res.send({ message: 'Hello World!' });
 });
