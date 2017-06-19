@@ -1,13 +1,16 @@
+import path from 'path';
 import express from 'express';
 import cookies from 'cookie-parser';
 
 import moment from 'moment';
 import { sign, verify } from './sign';
+import htpasswd from './htpasswd';
 
 const SECRET = process.env.SECRET || 'SECRET';
 const PORT = process.env.PORT || 3000;
 const COOKIE_NAME = 'auth';
 
+const authenticate = htpasswd( path.resolve( __dirname, '../.htpasswd' ) );
 const app = express();
 
 app.use( ( req, res, next ) => {
@@ -79,7 +82,7 @@ function verifyHeader( header ) {
 
   console.log( `[staging-auth] Credentials: ${ username } ${ password }` );
 
-  if ( username !== password ) {
+  if ( authenticate( username, password ) ) {
     throw new Error( 'Bad username:password combination.' );
   }
 
